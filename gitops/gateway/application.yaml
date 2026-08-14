@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: devboard-app
+spec:
+  destination:
+    namespace: ''
+    server: https://kubernetes.default.svc
+  source:
+    path: k8s
+    repoURL: https://github.com/nikscool24/devboard-eks-argocd.git
+    targetRevision: feat/gitops 
+  sources: []
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      enabled: true
+    syncOptions:
+      - PruneLast=true
+      - CreateNamespace=true
